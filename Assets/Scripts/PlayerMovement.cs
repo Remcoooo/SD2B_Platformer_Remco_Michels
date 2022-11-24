@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Vector3 respawnPoint;
     public GameObject FallDetector;
+    private CapsuleCollider2D cc;
+    private Vector2 colliderSize;
 
     // Update is called once per frame
     private void Start()
@@ -18,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 
         respawnPoint = transform.position;
+
+        cc = GetComponent<CapsuleCollider2D>();
+
+        colliderSize = cc.size;
     }
 
     void Update()
@@ -47,6 +53,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         FallDetector.transform.position = new Vector2(transform.position.x, FallDetector.transform.position.y);
+    }
+
+    private void FixedUpdate()
+    {
+        slopeCheck();
+    }
+
+    private void slopeCheck()
+    {
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
