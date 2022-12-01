@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour
     public float lifeTime = 3;
     public float dirX = 1f;
 
-    // Update is called once per frame
     private void Start()
     {
         Destroy(gameObject, lifeTime);
@@ -21,7 +20,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemyScript = collision.gameObject.GetComponent<Enemy>();
