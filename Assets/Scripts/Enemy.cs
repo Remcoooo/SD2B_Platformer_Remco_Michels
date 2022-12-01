@@ -7,9 +7,13 @@ public class Enemy : MonoBehaviour
     float dirX = 1f;
     public int hp = 2;
     public float speed = 5;
+    Animator animate;
     bool isAlive = true;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        animate = GetComponent<Animator>();
+    }
     void Update()
     {
         if (isAlive)
@@ -45,5 +49,6 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isAlive = false;
+        animate.SetBool("isAlive", isAlive);
     }
 }
