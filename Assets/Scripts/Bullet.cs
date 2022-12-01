@@ -18,4 +18,16 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(transform.right * dirX * speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Enemy enemyScript = collision.gameObject.GetComponent<Enemy>();
+
+            enemyScript.takeDamage();
+            Destroy(gameObject);
+        }
+    }
 }

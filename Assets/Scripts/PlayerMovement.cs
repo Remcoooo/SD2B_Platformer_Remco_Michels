@@ -14,6 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider2D cc;
     private Vector2 colliderSize;
 
+    [SerializeField]
+    private float slopeCheckDistance;
+
+    [SerializeField]
+    private LayerMask whatIsGround;
+
     // Update is called once per frame
     private void Start()
     {
@@ -62,7 +68,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void slopeCheck()
     {
+        Vector2 checkPos = transform.position - new Vector3(0.0f, colliderSize.y / 2);
+        slopeCheckVertical(checkPos);
+    }
 
+    private void slopeCheckHorizontal(Vector2 checkPos)
+    {
+
+    }
+
+    private void slopeCheckVertical(Vector2 checkPos)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, slopeCheckDistance, whatIsGround);
+
+        if (hit)
+        {
+            Debug.DrawRay(hit.point, hit.normal, Color.blue);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

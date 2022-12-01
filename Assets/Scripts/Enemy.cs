@@ -5,17 +5,21 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     float dirX = 1f;
+    public int hp = 2;
     public float speed = 5;
+    bool isAlive = true;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.right * dirX * speed *  Time.deltaTime);
+        if (isAlive)
+        {
+            transform.Translate(transform.right * dirX * speed *  Time.deltaTime);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * dirX, 0.6f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * dirX, 0.6f);
 
-        Debug.DrawRay(transform.position, transform.right * 0.6f * dirX, Color.blue);
-
+            Debug.DrawRay(transform.position, transform.right * 0.6f * dirX, Color.blue);
+        }
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,5 +31,20 @@ public class Enemy : MonoBehaviour
                 dirX *= -1f;
             }
         }
+    }
+
+    public void takeDamage()
+    {
+        hp--;
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Die");
+        isAlive = false;
     }
 }
