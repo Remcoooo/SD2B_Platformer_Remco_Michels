@@ -7,13 +7,8 @@ public class Enemy : MonoBehaviour
     float dirX = 1f;
     public int hp = 2;
     public float speed = 5;
-    Animator animate;
     bool isAlive = true;
 
-    private void Start()
-    {
-        animate = GetComponent<Animator>();
-    }
     void Update()
     {
         if (isAlive)
@@ -43,12 +38,14 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             Die();
+            
         }
     }
 
     void Die()
     {
-        isAlive = false;
-        animate.SetBool("isAlive", isAlive);
+        Destroy(gameObject);
+        //isAlive = false;
+        //animate.SetBool("isAlive", isAlive);
     }
 }

@@ -27,5 +27,11 @@ public class Bullet : MonoBehaviour
             enemyScript.takeDamage();
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("MapTiles"))
+        {
+            Bullet BulletScript = collision.gameObject.GetComponent<Bullet>();
+            Destroy(gameObject);
+        }
     }
 }

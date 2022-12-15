@@ -9,27 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private float facingDirX = 1;
     public float Jumpforce = 1;
     private Rigidbody2D _rigidbody;
-    private Vector3 respawnPoint;
-    public GameObject FallDetector;
-    private CapsuleCollider2D cc;
-    private Vector2 colliderSize;
-
-    [SerializeField]
-    private float slopeCheckDistance;
-
-    [SerializeField]
-    private LayerMask whatIsGround;
+    float inputHorizontal;
 
     // Update is called once per frame
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-
-        respawnPoint = transform.position;
-
-        cc = GetComponent<CapsuleCollider2D>();
-
-        colliderSize = cc.size;
     }
 
     void Update()
@@ -57,41 +42,20 @@ public class PlayerMovement : MonoBehaviour
         {
             _rigidbody.AddForce(new Vector2(0, Jumpforce), ForceMode2D.Impulse);
         }
-
-        FallDetector.transform.position = new Vector2(transform.position.x, FallDetector.transform.position.y);
     }
 
     private void FixedUpdate()
     {
-        slopeCheck();
-    }
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
 
-    private void slopeCheck()
-    {
-        Vector2 checkPos = transform.position - new Vector3(0.0f, colliderSize.y / 2);
-        slopeCheckVertical(checkPos);
-    }
-
-    private void slopeCheckHorizontal(Vector2 checkPos)
-    {
-
-    }
-
-    private void slopeCheckVertical(Vector2 checkPos)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, slopeCheckDistance, whatIsGround);
-
-        if (hit)
+        if(inputHorizontal > 0)
         {
-            Debug.DrawRay(hit.point, hit.normal, Color.blue);
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "FallDetector")
+        if (inputHorizontal < 0)
         {
-            transform.position = respawnPoint;
+            gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 }
