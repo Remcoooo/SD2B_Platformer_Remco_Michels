@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        ScoreSystem.score += 1;
         Destroy(gameObject);
         //isAlive = false;
         //animate.SetBool("isAlive", isAlive);
