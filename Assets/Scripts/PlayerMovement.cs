@@ -10,10 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public float Jumpforce = 1;
     private Rigidbody2D _rigidbody;
     float inputHorizontal;
+    AudioSource shootingSound;
 
     // Update is called once per frame
     private void Start()
     {
+        shootingSound = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            shootingSound.Play();
             GameObject spawnBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             spawnBullet.GetComponent<Bullet>().dirX = facingDirX;
         }
